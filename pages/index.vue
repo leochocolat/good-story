@@ -1,7 +1,9 @@
 <template>
     <div class="page-home">
 
-        <TheNavigation page="home" />
+        <Navigation page="home" />
+
+        <ButtonHold ref="buttonHold" :label="labels[state]" />
 
     </div>
 </template>

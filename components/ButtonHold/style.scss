@@ -1,0 +1,81 @@
+.button-hold {
+    position: absolute;
+    right: 0;
+    bottom: vw(55px);
+    left: 0;
+
+    width: vw(200px);
+
+    margin: auto;
+    
+    @include respond-to('large') {
+        bottom: vw-l(55px);
+
+        width: vw-l(200px);
+    }
+}
+
+.label {
+    font-weight: 200;
+    font-size: rem(20px);
+    text-align: center;
+
+    @include respond-to('large') {
+        font-size: rem-l(20px);
+    }
+
+    &::v-deep {
+        b {
+            font-weight: 500;
+        }
+    }
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    bottom: vw(103px);
+    left: 0;
+
+    width: vw(64px);
+    height: vw(64px);
+
+    margin: auto;
+
+    border: solid 1px $color-black;
+
+    border-radius: 50%;
+
+    transform: scale(1);
+
+    transition: transform 0.5s $sine-in-out;
+
+    cursor: pointer;
+    
+    @include respond-to('large') {
+        bottom: vw-l(41px);
+
+        width: vw-l(64px);
+        height: vw-l(64px);
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.center {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: $color-black;
+
+    border-radius: 50%;
+
+    transform: scale(0);
+}
+

@@ -1,16 +1,16 @@
 // Vendor
 import FontFaceObserver from 'fontfaceobserver';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 // Utils
 import EventDispatcher from '@/utils/EventDispatcher';
 import resources from '@/resources';
+import { TextureLoader } from 'three';
 
 // States
 const STATE_LOADING = 'loading';
 const STATE_LOADED = 'loaded';
-
-// Cache
-const cache = [];
 
 export default class ResourceLoader extends EventDispatcher {
     constructor(resources, basePath) {
@@ -25,14 +25,21 @@ export default class ResourceLoader extends EventDispatcher {
     /**
      * Static
      */
+    static cache = [];
+
     static get(name) {
         const resource = this._getResourceByName(name);
         return resource.data;
     }
 
+    static setResource(resource) {
+        ResourceLoader.cache = resource;
+        this._allAssetsLoaded = true;
+    }
+
     static _getResourceByName(name) {
-        for (let i = 0, len = cache.length; i < len; i++) {
-            if (cache[i].name === name) return cache[i];
+        for (let i = 0, len = ResourceLoader.cache.length; i < len; i++) {
+            if (ResourceLoader.cache[i].name === name) return ResourceLoader.cache[i];
         }
         return undefined;
     }
@@ -40,35 +47,31 @@ export default class ResourceLoader extends EventDispatcher {
     /**
      * Private
      */
-    _deepClone(array) {
-        return JSON.parse(JSON.stringify(array));
-    }
-
     _loadResources() {
+        const promises = [];
+
         for (let i = 0, len = this._resources.length; i < len; i++) {
-            this._loadResource(this._resources[i]);
+            promises.push(this._loadResource(this._resources[i]));
         }
+
+        return Promise.all(promises).then((responses) => {
+            ResourceLoader.cache = responses;
+            this.dispatchEvent('complete', responses);
+        });
     }
 
     _loadResource(resource) {
         switch (resource.type) {
             case 'image':
-                this._loadImage(resource);
-                break;
+                return this._loadImage(resource);
+            case 'texture':
+                return this._loadTexture(resource);
             case 'font':
-                this._loadFont(resource);
-                break;
+                return this._loadFont(resource);
+            case 'gltf':
+            case 'glb':
+                return this._loadGltf(resource);
         }
-    }
-
-    _checkResourcesStatus() {
-        for (let i = 0, len = this._resources.length; i < len; i++) {
-            if (this._resources[i].state === STATE_LOADING) {
-                return;
-            }
-        }
-        this._allAssetsLoaded = true;
-        this.dispatchEvent('complete');
     }
 
     /**
@@ -76,26 +79,78 @@ export default class ResourceLoader extends EventDispatcher {
      */
     _loadImage(resource) {
         resource.state = STATE_LOADING;
+
         const image = new Image();
         image.crossOrigin = '';
-        image.onload = () => {
-            resource.state = STATE_LOADED;
-            cache.push(resource);
-            this._checkResourcesStatus();
-        };
+
+        const promise = new Promise((resolve) => {
+            image.onload = () => {
+                resource.state = STATE_LOADED;
+                resolve(resource);
+            };
+        });
+
         image.src = resource.path ? this._basePath + resource.path : resource.absolutePath;
         resource.data = image;
+
+        return promise;
     }
 
     _loadFont(resource) {
         resource.state = STATE_LOADING;
+
         const observer = new FontFaceObserver(resource.name, {
             weight: resource.weight,
         });
-        observer.load().then(() => {
-            resource.state = STATE_LOADED;
-            cache.push(resource);
-            this._checkResourcesStatus();
+
+        const promise = new Promise((resolve) => {
+            observer.load().then(() => {
+                resource.state = STATE_LOADED;
+                resolve(resource);
+            });
         });
+
+        return promise;
+    }
+
+    _loadGltf(resource) {
+        resource.state = STATE_LOADING;
+
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath(this._basePath + '/libs/draco/');
+
+        const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
+
+        const promise = new Promise((resolve) => {
+            loader.load(this._basePath + resource.path, (gltf) => {
+                resource.state = STATE_LOADED;
+                resource.data = gltf;
+                resolve(resource);
+            });
+        });
+
+        return promise;
+    }
+
+    _loadTexture(resource) {
+        resource.state = STATE_LOADING;
+
+        const promise = new Promise((resolve) => {
+            new TextureLoader().load(this._basePath + resource.path, (texture) => {
+                resource.state = STATE_LOADED;
+                resource.data = texture;
+                resolve(resource);
+            });
+        });
+
+        return promise;
+    }
+
+    /**
+     * Utils
+     */
+    _deepClone(array) {
+        return JSON.parse(JSON.stringify(array));
     }
 }

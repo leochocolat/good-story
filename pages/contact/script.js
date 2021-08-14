@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import page from '@/mixins/page';
 
 // Components
-import TheNavigation from '@/components/TheNavigation';
+import Navigation from '@/components/Navigation';
 
 export default {
     mixins: [page],
@@ -41,6 +41,6 @@ export default {
     },
 
     components: {
-        TheNavigation,
+        Navigation,
     },
 };

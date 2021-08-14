@@ -62,7 +62,20 @@ export default {
      ** Build configuration
      ** See https://nuxtjs.org/api/configuration-build/
      */
-    build: {},
+    build: {
+        extend(config) {
+            /**
+             * GLSL loader
+             */
+            config.module.rules.push({
+                test: /\.(glsl|vs|fs|vert|frag)$/,
+                exclude: /node_modules/,
+                use: ['raw-loader', 'glslify-loader'],
+            });
+        },
+
+        transpile: ['three'],
+    },
 
     server: {
         port: 3000,

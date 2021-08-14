@@ -1,8 +1,5 @@
 <template>
-    <div class="page-contact">
-
-        <Navigation page="contact" />
-
+    <div class="the-preloader">
     </div>
 </template>
 

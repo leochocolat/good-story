@@ -16,6 +16,8 @@ export default class WebGLApplication {
         this._width = WindowResizeObserver.width;
         this._height = WindowResizeObserver.height;
 
+        this._debugger = this._nuxtRoot.debugger;
+
         this._mousePosition = {
             screen: new Vector2(),
             normalized: new Vector2(),
@@ -30,11 +32,27 @@ export default class WebGLApplication {
     }
 
     /**
-     * Public
+     * Getters
+     */
+    get scene() {
+        return this._scene;
+    }
+
+    /**
+     * Setters
+     */
+
+    /**
+     * Lifecycle
      */
     destroy() {
         this._removeEventListeners();
+        this._scene.destroy();
     }
+
+    /**
+     * Public
+     */
 
     /**
      * Private
@@ -42,6 +60,7 @@ export default class WebGLApplication {
     _createRenderer() {
         const renderer = new WebGLRenderer({
             canvas: this._canvas,
+            antialias: true,
         });
 
         renderer.setClearColor('white');
@@ -58,6 +77,7 @@ export default class WebGLApplication {
             nuxtRoot: this._nuxtRoot,
             width: this._width,
             height: this._height,
+            debugger: this._debugger,
             mousePosition: this._mousePosition,
         });
 

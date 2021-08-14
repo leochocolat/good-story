@@ -1,10 +1,13 @@
 <template>
     <div class="default">
+
         <CanvasWebGL />
 
         <nuxt />
 
         <TheButtonHome />
+
+        <ThePreloader />
 
     </div>
 </template>

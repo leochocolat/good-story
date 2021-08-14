@@ -1,12 +1,11 @@
 // Vendor
-import Tweakpane from 'tweakpane';
+import { Pane } from 'tweakpane';
 
 // Utils
 import bindAll from './bindAll';
 import DragManager from './DragManager';
-import TweakpaneInputMedia from './debugger/TweakpaneInputMedia';
 
-class Debugger extends Tweakpane {
+class Debugger extends Pane {
     constructor(options) {
         super();
 
@@ -37,14 +36,6 @@ class Debugger extends Tweakpane {
         return folder;
     }
 
-    addInputMedia(media, options) {
-        const inputMedia = new TweakpaneInputMedia(media, options);
-
-        this._customInstances.push(inputMedia);
-
-        return inputMedia;
-    }
-
     /**
      * Private
      */
@@ -58,8 +49,8 @@ class Debugger extends Tweakpane {
     }
 
     __setupStyle() {
-        this.element.style.position = 'fixed';
-        this.element.style.right = '10px';
+        // this.element.style.position = 'fixed';
+        // this.element.style.right = '10px';
     }
 
     __createDragButton() {

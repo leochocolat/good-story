@@ -136,12 +136,15 @@ export default class LogoBoolean extends Object3D {
     _createDebugFolder() {
         if (!this._debugger) return;
         const folder = this._debugger.addFolder({ title: 'Logo' });
-        folder.addInput(this._settings, 'lerp', { min: 0, max: 1 });
-        folder.addInput(this._settings, 'rotateX', { min: -45, max: 45 });
-        folder.addInput(this._settings, 'rotateY', { min: -45, max: 45 });
-        folder.addInput(this._settings.targetPosition, 'x', { min: -100, max: 100, label: 'target pos x' });
-        folder.addInput(this._settings.targetPosition, 'y', { min: -100, max: 100, label: 'target pos y' });
-        folder.addInput(this._settings.targetPosition, 'z', { min: -1000, max: 1000, label: 'target pos z' });
+
+        const interactions = folder.addFolder({ title: 'Interactions' });
+        interactions.addInput(this._settings, 'lerp', { min: 0, max: 1 });
+        interactions.addInput(this._settings, 'rotateX', { min: -45, max: 45 });
+        interactions.addInput(this._settings, 'rotateY', { min: -45, max: 45 });
+
+        const animations = folder.addFolder({ title: 'Animations' });
+        animations.addInput(this._settings, 'targetPosition');
+
         return folder;
     }
 }

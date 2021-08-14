@@ -157,7 +157,10 @@ export default class Main extends Scene {
         if (!this._debugger) return;
 
         const folder = this._debugger.addFolder({ title: 'Main' });
-        folder.addInput(this._ambiantLight, 'intensity', { min: 0, max: 1 });
-        folder.addInput(this._light, 'position', { label: 'position' });
+        const lights = folder.addFolder({ title: 'Lights' });
+        lights.addInput(this._ambiantLight, 'intensity', { min: 0, max: 1 });
+        lights.addInput(this._light, 'position', { label: 'position' });
+
+        return folder;
     }
 }

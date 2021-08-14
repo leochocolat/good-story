@@ -1,0 +1,22 @@
+.the-navigation {
+    position: fixed;
+    top: vw(52px);
+    right: vw(43px);
+
+    text-align: right;
+    
+    @include respond-to('large') {
+        top: vw-l(55px);
+        right: vw-l(63px);
+    }
+}
+
+.button {
+    font-weight: 700;
+    font-size: rem(20px);
+    text-transform: uppercase;
+
+    @include respond-to('large') {
+        font-size: rem-l(20px);
+    }
+}

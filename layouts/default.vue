@@ -1,11 +1,11 @@
 <template>
     <div class="default">
+        <CanvasWebGL />
+
         <nuxt />
 
-        <nav>
-            <nuxt-link to="/">Home</nuxt-link>
-            <nuxt-link to="/about">About</nuxt-link>
-        </nav>
+        <TheButtonHome />
+
     </div>
 </template>
 

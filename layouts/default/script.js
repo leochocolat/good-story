@@ -1,3 +1,7 @@
+// Components
+import CanvasWebGL from '@/components/CanvasWebGL';
+import TheButtonHome from '@/components/TheButtonHome';
+
 export default {
     watch: {
         $route(to, from) {
@@ -8,5 +12,10 @@ export default {
 
     mounted() {
         this.$store.dispatch('router/setCurrent', this.$route);
+    },
+
+    components: {
+        CanvasWebGL,
+        TheButtonHome,
     },
 };

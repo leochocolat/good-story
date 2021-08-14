@@ -1,0 +1,34 @@
+.button-home {
+    position: absolute;
+    top: vw(52px);
+    left: vw(43px);
+
+    @include respond-to('large') {
+        top: vw-l(63px);
+        left: vw-l(55px);
+    }
+
+    &.white {
+        &::v-deep {
+            * {
+                fill: white;
+            }
+        }
+    }
+}
+
+svg {
+    width: vw(127px);
+    height: vw(45px);
+
+    &::v-deep {
+        * {
+            transition: fill 0.5s ease-in-out;
+        }
+    }
+
+    @include respond-to('large') {
+        width: vw-l(127px);
+        height: vw-l(45px);
+    }
+}

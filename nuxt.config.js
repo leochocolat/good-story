@@ -1,10 +1,5 @@
 export default {
     /*
-     ** Nuxt rendering mode
-     ** See https://nuxtjs.org/api/configuration-mode
-     */
-    mode: 'universal',
-    /*
      ** Nuxt target
      ** See https://nuxtjs.org/api/configuration-target
      */
@@ -40,21 +35,12 @@ export default {
      ** Plugins to load before mounting the App
      ** https://nuxtjs.org/guide/plugins
      */
-    plugins: ['@/plugins/listeners.client.js'],
+    plugins: ['@/plugins/init.client.js', '@/plugins/init.js'],
     /*
      ** Auto import components
      ** See https://nuxtjs.org/api/configuration-components
      */
-    components: [
-        {
-            path: '@/components/',
-            extensions: ['vue'],
-        },
-        {
-            path: '@/sections/',
-            extensions: ['vue'],
-        },
-    ],
+    components: false,
     /*
      ** Nuxt.js dev-modules
      */
@@ -67,18 +53,11 @@ export default {
      ** Nuxt.js modules
      */
     modules: [
-        // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios',
         // Doc: https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
         '@nuxtjs/style-resources',
         '@nuxtjs/svg',
     ],
-    /*
-     ** Axios module configuration
-     ** See https://axios.nuxtjs.org/options
-     */
-    axios: {},
     /*
      ** Build configuration
      ** See https://nuxtjs.org/api/configuration-build/

@@ -1,5 +1,5 @@
 {
-    "name": "dylk-starter",
+    "name": "good-story",
     "version": "1.0.0",
     "private": true,
     "scripts": {
@@ -16,31 +16,28 @@
         "lint": "npm run lint:js && npm run lint:style"
     },
     "dependencies": {
-        "@nuxtjs/axios": "^5.12.1",
         "bowser": "^2.11.0",
         "fontfaceobserver": "^2.1.0",
-        "gsap": "^3.5.0",
-        "nuxt": "^2.14.3"
+        "gsap": "^3.7.1",
+        "nuxt": "^2.15.8",
+        "three": "^0.131.3",
+        "tweakpane": "^3.0.5"
     },
     "devDependencies": {
-        "@nuxtjs/svg": "^0.1.11",
         "@nuxtjs/dotenv": "^1.4.1",
         "@nuxtjs/eslint-config": "^3.1.0",
         "@nuxtjs/eslint-module": "^2.0.0",
-        "@nuxtjs/style-resources": "^1.0.0",
+        "@nuxtjs/style-resources": "^1.2.1",
         "@nuxtjs/stylelint-module": "^4.0.0",
+        "@nuxtjs/svg": "^0.1.12",
         "babel-eslint": "^10.1.0",
-        "eslint": "^7.7.0",
-        "eslint-config-prettier": "^6.11.0",
+        "eslint": "^7.32.0",
         "eslint-plugin-nuxt": "^1.0.0",
-        "eslint-plugin-prettier": "^3.1.4",
         "node-sass": "^4.14.1",
-        "prettier": "^2.0.5",
-        "sass-loader": "^9.0.3",
-        "stylelint": "^13.6.1",
-        "stylelint-config-prettier": "^8.0.1",
+        "sass-loader": "^10.1.1",
+        "stylelint": "^13.13.1",
         "stylelint-config-standard": "^20.0.0",
         "stylelint-order": "^4.1.0",
-        "stylelint-scss": "^3.18.0"
+        "stylelint-scss": "^3.20.1"
     }
 }

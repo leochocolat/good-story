@@ -4,6 +4,9 @@ import gsap from 'gsap';
 // Mixins
 import page from '@/mixins/page';
 
+// Components
+import TheNavigation from '@/components/TheNavigation';
+
 export default {
     mixins: [page],
 
@@ -35,5 +38,9 @@ export default {
 
             return timeline;
         },
+    },
+
+    components: {
+        TheNavigation,
     },
 };

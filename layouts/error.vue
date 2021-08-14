@@ -1,5 +1,5 @@
 <template>
-    <div class="page-error"></div>
+    <div class="error"></div>
 </template>
 
 <script src="./error/script.js"></script>

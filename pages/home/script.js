@@ -24,11 +24,11 @@ export default {
 
     data() {
         return {
-            delta: 0,
-            holdProgress: 0,
             state: 'notouch',
             previousIndex: 0,
             currentIndex: 0,
+            delta: 0,
+            holdProgress: 0,
             labels: {
                 notouch: '<b>Maintenez</b> le click',
                 touchstart: '<b>Maintenez</b> le click',
@@ -52,6 +52,10 @@ export default {
     mounted() {
         this.allowRelease = false;
 
+        this.tweenObject = {
+            colorTransitionProgress: 0,
+        };
+
         if (this.isReady) this.setup();
     },
 
@@ -67,7 +71,7 @@ export default {
         firstReveal(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, 0.5, { alpha: 1, ease: 'circ.inOut' });
+            timeline.add(this.transitionIn(), 0);
 
             return timeline;
         },
@@ -75,7 +79,8 @@ export default {
         transitionIn(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, 0.5, { alpha: 1, ease: 'circ.inOut' });
+            timeline.to(this.$el, { duration: 0.5, alpha: 1, ease: 'circ.inOut' }, 0);
+            timeline.add(this.$refs.buttonHold.show(), 0);
 
             return timeline;
         },
@@ -83,7 +88,8 @@ export default {
         transitionOut(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, 0.5, { alpha: 0, ease: 'circ.inOut' });
+            timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'circ.inOut' }, 0);
+            timeline.add(this.$refs.buttonHold.hide(), 0);
 
             return timeline;
         },
@@ -101,10 +107,13 @@ export default {
         setupTimelineHold() {
             this.timelineHold = new gsap.timeline({ paused: true, onComplete: this.onHoldCompleteHandler });
             this.timelineHold.to(this.$root.webgl.scene, { duration: 1, progress: 1, ease: 'power3.inOut' }, 0);
+            this.timelineHold.to(this.tweenObject, { duration: 0.3, colorTransitionProgress: 1, ease: 'power3.inOut' }, 0.4);
         },
 
         setupTimelineRelease() {
             this.timelineRelease = new gsap.timeline({ paused: true, onComplete: this.onReleaseCompleteHandler });
+            this.timelineRelease.add(this.$refs.buttonHold.hide(), 0);
+            this.timelineRelease.to(this.tweenObject, { duration: 0.3, colorTransitionProgress: 0, ease: 'power3.inOut' }, 0);
             this.timelineRelease.to(this.$root.webgl.scene, { duration: 1, progress: 0, ease: 'power3.inOut' }, 0);
         },
 
@@ -154,6 +163,8 @@ export default {
 
             const progress = easings.easeInOutQuad(this.holdProgress);
             this.$refs.buttonHold.setProgress(progress);
+
+            this.$store.dispatch('animations/setColorTransitionProgress', this.tweenObject.colorTransitionProgress);
         },
 
         onHoldCompleteHandler() {
@@ -164,6 +175,7 @@ export default {
 
         onReleaseCompleteHandler() {
             this.allowRelease = false;
+            this.$refs.buttonHold.show();
 
             // Set active content
             this.previousIndex = this.currentIndex;

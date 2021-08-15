@@ -1,6 +1,7 @@
 <template>
-    <nuxt-link class="button button-home" :class="color" to="/">
-        <Logo />
+    <nuxt-link class="button button-home" to="/">
+        <Logo ref="logoBlack" class="black" />
+        <Logo ref="logoWhite" class="white" />
     </nuxt-link>
 </template>
 

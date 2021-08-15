@@ -68,6 +68,7 @@ export default class Main extends Scene {
 
     set activeImage(image) {
         this._activeImage = image;
+        this._logo.switchSide();
         this._backgroundPlane.activeImage = image;
     }
 

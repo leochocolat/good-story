@@ -1,7 +1,7 @@
 <template>
     <div class="button-hold">
 
-        <div class="container">
+        <div ref="container" class="container">
 
             <div ref="center" class="center"></div>
 

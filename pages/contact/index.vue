@@ -1,7 +1,7 @@
 <template>
     <div class="page-contact">
 
-        <Navigation page="contact" />
+        <Navigation route="/" route-name="Accueil" />
 
     </div>
 </template>

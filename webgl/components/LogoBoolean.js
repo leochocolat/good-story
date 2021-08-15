@@ -31,6 +31,8 @@ export default class LogoBoolean extends Object3D {
             current: new Vector3(),
         };
 
+        this._side = -1;
+
         this._initialPosition = new Vector3();
 
         this._model = this._createModel();
@@ -66,7 +68,7 @@ export default class LogoBoolean extends Object3D {
      */
     set progress(progress) {
         this._progress = progress;
-        this.position.x = this._initialPosition.x + this._settings.targetPosition.x * progress;
+        this.position.x = this._initialPosition.x + (this._settings.targetPosition.x * this._side) * progress;
         this.position.y = this._initialPosition.y + this._settings.targetPosition.y * progress;
         this.position.z = this._initialPosition.z + this._settings.targetPosition.z * progress;
     }
@@ -89,13 +91,15 @@ export default class LogoBoolean extends Object3D {
         this._rotation.target.y = this._mousePosition.normalized.x * this._settings.rotateY * (Math.PI / 180);
     }
 
+    switchSide() {
+        this._side *= -1;
+    }
+
     /**
      * Private
      */
     _createModel() {
         const model = ResourceLoader.get('logo-reversed').scene;
-        // Debug
-        // const material = new MeshNormalMaterial({ color: 'white' });
         const material = new MeshStandardMaterial({ color: 'white' });
         model.traverse((child) => { if (child.isMesh) child.material = material; });
         this.add(model);

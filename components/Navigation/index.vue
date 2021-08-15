@@ -1,12 +1,8 @@
 <template>
     <div class="the-navigation">
 
-        <nuxt-link v-if="isHome" class="button button-contact" to="/contact">
-            Contact
-        </nuxt-link>
-
-        <nuxt-link v-if="isContact" class="button button-contact" to="/">
-            Accueil
+        <nuxt-link class="button" :to="route">
+            {{ routeName }}
         </nuxt-link>
 
     </div>

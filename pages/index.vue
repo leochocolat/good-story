@@ -1,7 +1,7 @@
 <template>
     <div class="page-home">
 
-        <Navigation page="home" />
+        <Navigation route="/contact" route-name="Contact" />
 
         <ButtonHold ref="buttonHold" :label="labels[state]" />
 

@@ -63,8 +63,6 @@ export default class WebGLApplication {
             antialias: true,
         });
 
-        renderer.setClearColor('white');
-
         renderer.setSize(this._width, this._height, false);
 
         return renderer;

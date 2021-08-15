@@ -61,8 +61,9 @@ export default class BackgroundPlane extends Object3D {
 
     set activeImage(image) {
         this._activeImage = image;
-        this._activeTexture = ResourceLoader.get(image);
+        this._activeTexture = image !== 'null' ? ResourceLoader.get(image) : null;
         this._material.uniforms.u_texture.value = this._activeTexture;
+        if (!this._activeTexture) return;
         this._material.uniforms.u_texture_size.value.set(this._activeTexture.image.width, this._activeTexture.image.height);
     }
 

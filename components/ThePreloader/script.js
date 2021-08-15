@@ -12,7 +12,7 @@ export default {
 
     methods: {
         setupResources() {
-            this.resourceLoader = new ResourceLoader(resources, '');
+            this.resourceLoader = new ResourceLoader(resources, './');
         },
 
         setupEventListeners() {

@@ -80,6 +80,8 @@ export default class ResourceLoader extends EventDispatcher {
     _loadImage(resource) {
         resource.state = STATE_LOADING;
 
+        const basePath = resource.isAbsolutePath ? '' : this._basePath;
+
         const image = new Image();
         image.crossOrigin = '';
 
@@ -90,7 +92,7 @@ export default class ResourceLoader extends EventDispatcher {
             };
         });
 
-        image.src = resource.path ? this._basePath + resource.path : resource.absolutePath;
+        image.src = basePath + resource.path;
         resource.data = image;
 
         return promise;
@@ -116,8 +118,10 @@ export default class ResourceLoader extends EventDispatcher {
     _loadGltf(resource) {
         resource.state = STATE_LOADING;
 
+        const basePath = resource.isAbsolutePath ? '' : this._basePath;
+
         const dracoLoader = new DRACOLoader();
-        dracoLoader.setDecoderPath(this._basePath + '/libs/draco/');
+        dracoLoader.setDecoderPath(basePath + '/libs/draco/');
 
         const loader = new GLTFLoader();
         loader.setDRACOLoader(dracoLoader);
@@ -136,8 +140,10 @@ export default class ResourceLoader extends EventDispatcher {
     _loadTexture(resource) {
         resource.state = STATE_LOADING;
 
+        const basePath = resource.isAbsolutePath ? '' : this._basePath;
+
         const promise = new Promise((resolve) => {
-            new TextureLoader().load(this._basePath + resource.path, (texture) => {
+            new TextureLoader().load(basePath + resource.path, (texture) => {
                 resource.state = STATE_LOADED;
                 resource.data = texture;
                 resolve(resource);

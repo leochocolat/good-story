@@ -1,8 +1,6 @@
 // Vendor
-import gsap from 'gsap';
-
-// Vendor
 import { mapGetters } from 'vuex';
+import gsap from 'gsap';
 
 // Utils
 import easings from '@/utils/easings';
@@ -40,6 +38,7 @@ export default {
     computed: {
         ...mapGetters({
             isReady: 'preloader/isReady',
+            isTouch: 'device/isTouch',
         }),
     },
 
@@ -89,7 +88,18 @@ export default {
             const timeline = gsap.timeline({ onComplete: done });
 
             timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'circ.inOut' }, 0);
+            timeline.to(this.$root.webgl.scene, { duration: 1.5, progress: 1, ease: 'power3.inOut' }, 0);
+            timeline.set(this.$root.webgl.scene, { activeImage: null }, 0);
             timeline.add(this.$refs.buttonHold.hide(), 0);
+
+            timeline.to(this.tweenObject, {
+                duration: 0.3,
+                colorTransitionProgress: 1,
+                ease: 'power3.inOut',
+                onUpdate: () => {
+                    this.$store.dispatch('animations/setColorTransitionProgress', this.tweenObject.colorTransitionProgress);
+                },
+            }, 0.4);
 
             return timeline;
         },
@@ -113,19 +123,31 @@ export default {
         setupTimelineRelease() {
             this.timelineRelease = new gsap.timeline({ paused: true, onComplete: this.onReleaseCompleteHandler });
             this.timelineRelease.add(this.$refs.buttonHold.hide(), 0);
-            this.timelineRelease.to(this.tweenObject, { duration: 0.3, colorTransitionProgress: 0, ease: 'power3.inOut' }, 0);
             this.timelineRelease.to(this.$root.webgl.scene, { duration: 1, progress: 0, ease: 'power3.inOut' }, 0);
+            this.timelineRelease.to(this.tweenObject, { duration: 0.3, colorTransitionProgress: 0, ease: 'power3.inOut' }, 0.4);
         },
 
         setupEventListeners() {
-            this.$el.addEventListener('mousedown', this.mousedownHandler);
-            this.$el.addEventListener('mouseup', this.mouseupHandler);
+            if (this.isTouch) {
+                this.$el.addEventListener('touchstart', this.mousedownHandler);
+                this.$el.addEventListener('touchend', this.mouseupHandler);
+            } else {
+                this.$el.addEventListener('mousedown', this.mousedownHandler);
+                this.$el.addEventListener('mouseup', this.mouseupHandler);
+            }
+
             gsap.ticker.add(this.tickHandler);
         },
 
         removeEventListeners() {
-            this.$el.removeEventListener('mousedown', this.mousedownHandler);
-            this.$el.removeEventListener('mouseup', this.mouseupHandler);
+            if (this.isTouch) {
+                this.$el.removeEventListener('touchstart', this.mousedownHandler);
+                this.$el.removeEventListener('touchend', this.mouseupHandler);
+            } else {
+                this.$el.removeEventListener('mousedown', this.mousedownHandler);
+                this.$el.removeEventListener('mouseup', this.mouseupHandler);
+            }
+
             gsap.ticker.remove(this.tickHandler);
         },
 

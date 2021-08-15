@@ -118,7 +118,7 @@ export default class LogoBoolean extends Object3D {
 
     _resizeModel() {
         this.scale.set(this._scaleValue, this._scaleValue, this._scaleValue);
-        this.position.z = this._originalSize.z * this._scaleValue * 6;
+        this.position.z = this._originalSize.z * this._scaleValue * 7;
         this._initialPosition.z = this.position.z;
     }
 

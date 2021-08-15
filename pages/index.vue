@@ -5,6 +5,12 @@
 
         <ButtonHold ref="buttonHold" :label="labels[state]" />
 
+        <div class="container">
+
+            <TextHome ref="text" :content="sections[currentIndex].text" />
+
+        </div>
+
     </div>
 </template>
 

@@ -20,6 +20,7 @@ export default class Main extends Scene {
         this._debugger = options.debugger;
 
         this._progress = 0;
+        this._activeImage = null;
 
         this._camera = this._createCamera();
         // this._controls = this._createControls();
@@ -52,6 +53,10 @@ export default class Main extends Scene {
         return this._progress;
     }
 
+    get activeImage() {
+        return this._activeImage;
+    }
+
     /**
      * Setters
      */
@@ -59,6 +64,11 @@ export default class Main extends Scene {
         this._progress = progress;
         this._logo.progress = progress;
         this._backgroundPlane.progress = progress;
+    }
+
+    set activeImage(image) {
+        this._activeImage = image;
+        this._backgroundPlane.activeImage = image;
     }
 
     /**
@@ -101,19 +111,17 @@ export default class Main extends Scene {
     }
 
     _createAmbiantLight() {
-        const light = new AmbientLight(0xffffff, 0.5); // soft white light
+        const light = new AmbientLight(0xffffff, 0.75); // soft white light
         this.add(light);
         return light;
     }
 
     _createLight() {
         const directionalLight = new DirectionalLight(0xffffff, 1);
-        directionalLight.position.z = 800;
-        directionalLight.position.x = this._width / 4;
+        directionalLight.position.x = 0;
+        directionalLight.position.y = 37;
+        directionalLight.position.z = 1000;
         this.add(directionalLight);
-
-        const helper = new DirectionalLightHelper(directionalLight, 5);
-        this.add(helper);
 
         return directionalLight;
     }

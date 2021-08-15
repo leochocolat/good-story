@@ -1,27 +1,34 @@
 // Vendor
 import gsap from 'gsap';
 
+// Vendor
+import { mapGetters } from 'vuex';
+
 // Utils
 import easings from '@/utils/easings';
 import math from '@/utils/math';
 
 // Mixins
 import page from '@/mixins/page';
+import content from '@/mixins/content';
 
 // Components
 import Navigation from '@/components/Navigation';
 import ButtonHold from '@/components/ButtonHold';
+import TextHome from '@/components/TextHome';
 
 const HOLD_SPEED = 0.01;
 
 export default {
-    mixins: [page],
+    mixins: [page, content],
 
     data() {
         return {
             delta: 0,
             holdProgress: 0,
             state: 'notouch',
+            previousIndex: 0,
+            currentIndex: 0,
             labels: {
                 notouch: '<b>Maintenez</b> le click',
                 touchstart: '<b>Maintenez</b> le click',
@@ -30,8 +37,22 @@ export default {
         };
     },
 
+    computed: {
+        ...mapGetters({
+            isReady: 'preloader/isReady',
+        }),
+    },
+
+    watch: {
+        isReady(isReady) {
+            if (isReady) this.setup();
+        },
+    },
+
     mounted() {
-        this.setupEventListeners();
+        this.allowRelease = false;
+
+        if (this.isReady) this.setup();
     },
 
     beforeDestroy() {
@@ -70,6 +91,23 @@ export default {
         /**
          * Private
          */
+        setup() {
+            this.setupTimelineHold();
+            this.setupTimelineRelease();
+            this.setupEventListeners();
+            this.$root.webgl.scene.activeImage = this.sections[this.currentIndex].image;
+        },
+
+        setupTimelineHold() {
+            this.timelineHold = new gsap.timeline({ paused: true, onComplete: this.onHoldCompleteHandler });
+            this.timelineHold.to(this.$root.webgl.scene, { duration: 1, progress: 1, ease: 'power3.inOut' }, 0);
+        },
+
+        setupTimelineRelease() {
+            this.timelineRelease = new gsap.timeline({ paused: true, onComplete: this.onReleaseCompleteHandler });
+            this.timelineRelease.to(this.$root.webgl.scene, { duration: 1, progress: 0, ease: 'power3.inOut' }, 0);
+        },
+
         setupEventListeners() {
             this.$el.addEventListener('mousedown', this.mousedownHandler);
             this.$el.addEventListener('mouseup', this.mouseupHandler);
@@ -83,6 +121,10 @@ export default {
         },
 
         mousedownHandler() {
+            if (this.allowRelease) return;
+
+            this.isHolding = true;
+
             this.delta = HOLD_SPEED;
 
             this.state = 'touchstart';
@@ -91,25 +133,48 @@ export default {
         mouseupHandler() {
             this.delta = -HOLD_SPEED;
 
+            this.isHolding = false;
+
             this.state = 'notouch';
+
+            this.$refs.text.hide();
         },
 
         tickHandler() {
             this.holdProgress += this.delta;
             this.holdProgress = math.clamp(this.holdProgress, 0, 1);
+
+            if (this.allowRelease && !this.isHolding) {
+                this.timelineHold.kill();
+                this.timelineRelease.progress(1.0 - this.holdProgress);
+            } else {
+                this.timelineRelease.kill();
+                this.timelineHold.progress(this.holdProgress);
+            }
+
             const progress = easings.easeInOutQuad(this.holdProgress);
             this.$refs.buttonHold.setProgress(progress);
+        },
 
-            if (this.$root.webgl) this.$root.webgl.scene.progress = progress;
+        onHoldCompleteHandler() {
+            this.state = 'touchcomplete';
+            this.allowRelease = true;
+            this.$refs.text.show();
+        },
 
-            if (this.holdProgress === 1) {
-                this.state = 'touchcomplete';
-            }
+        onReleaseCompleteHandler() {
+            this.allowRelease = false;
+
+            // Set active content
+            this.previousIndex = this.currentIndex;
+            this.currentIndex = (this.currentIndex + 1) % this.sections.length;
+            this.$root.webgl.scene.activeImage = this.sections[this.currentIndex].image;
         },
     },
 
     components: {
         Navigation,
         ButtonHold,
+        TextHome,
     },
 };

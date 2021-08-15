@@ -1,5 +1,5 @@
 // Vendor
-import { Mesh, MeshBasicMaterial, Object3D, PlaneBufferGeometry, ShaderMaterial, Vector2 } from 'three';
+import { Mesh, MeshBasicMaterial, Object3D, PlaneBufferGeometry, ShaderMaterial, Texture, Vector2 } from 'three';
 
 // Utils
 import ResourceLoader from '@/utils/ResourceLoader';
@@ -23,8 +23,9 @@ export default class BackgroundPlane extends Object3D {
         this._mousePosition = options.mousePosition;
 
         this._progress = 0;
+        this._activeImage = null;
+        this._activeTexture = null;
 
-        this._textures = this._getTextures();
         this._material = this._createMaterial();
         this._plane = this._createPlane();
     }
@@ -47,11 +48,22 @@ export default class BackgroundPlane extends Object3D {
         return this._progress;
     }
 
+    get activeImage() {
+        return this._activeImage;
+    }
+
     /**
      * Setters
      */
     set progress(progress) {
         this._progress = progress;
+    }
+
+    set activeImage(image) {
+        this._activeImage = image;
+        this._activeTexture = ResourceLoader.get(image);
+        this._material.uniforms.u_texture.value = this._activeTexture;
+        this._material.uniforms.u_texture_size.value.set(this._activeTexture.image.width, this._activeTexture.image.height);
     }
 
     /**
@@ -71,25 +83,12 @@ export default class BackgroundPlane extends Object3D {
     /**
      * Private
      */
-    _getTextures() {
-        const images = data.images;
-        const textures = [];
-
-        for (let i = 0; i < images.length; i++) {
-            const image = images[i];
-            const texture = ResourceLoader.get(image);
-            textures.push(texture);
-        }
-
-        return textures;
-    }
-
     _createMaterial() {
         const material = new ShaderMaterial({
             uniforms: {
                 u_resolution: { value: new Vector2(this._width, this._height) },
-                u_texture: { value: this._textures[0] },
-                u_texture_size: { value: new Vector2(this._textures[0].image.width, this._textures[0].image.height) },
+                u_texture: { value: null },
+                u_texture_size: { value: new Vector2(0, 0) },
             },
             vertexShader: vertex,
             fragmentShader: fragment,

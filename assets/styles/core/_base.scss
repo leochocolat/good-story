@@ -6,4 +6,8 @@ html {
 
 body {
     font-size: rem-l(30px);
+
+    * {
+        @include unselectable();
+    }
 }

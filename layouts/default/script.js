@@ -1,4 +1,5 @@
 // Vendor
+import gsap from 'gsap';
 import { mapGetters } from 'vuex';
 
 // Components
@@ -27,6 +28,8 @@ export default {
         if (this.isDebug) this.$root.debugger = new Debugger({ title: 'Good Story' });
 
         this.$store.dispatch('router/setCurrent', this.$route);
+
+        this.transitionIn();
     },
 
     updated() {
@@ -36,6 +39,12 @@ export default {
 
     beforeDestroy() {
         // console.log('before destroy');
+    },
+
+    methods: {
+        transitionIn() {
+            this.$refs.buttonHome.show();
+        },
     },
 
     components: {

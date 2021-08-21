@@ -5,7 +5,7 @@
 
         <nuxt />
 
-        <TheButtonHome />
+        <TheButtonHome ref="buttonHome" />
 
         <ThePreloader />
 

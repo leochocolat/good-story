@@ -96,6 +96,7 @@ export default class LogoContact extends Object3D {
             onComplete: () => { this._isTweening = false; },
         });
 
+        timeline.call(() => { this.add(this._model); }, null, 0);
         timeline.to(this._material, { duration: 0.5, opacity: 1, ease: 'sine.out' }, 0.5);
         timeline.fromTo(this._rotation.target, { x: 0, y: 540 * (Math.PI / 180) }, { duration: 1.5, x: 0, y: 0, ease: 'power3.out' }, 0.3);
 
@@ -110,6 +111,7 @@ export default class LogoContact extends Object3D {
         });
 
         timeline.to(this._material, { duration: 0.5, opacity: 0, ease: 'sine.inOut' }, 0);
+        timeline.call(() => { this.remove(this._model); }, null);
 
         return timeline;
     }
@@ -125,7 +127,6 @@ export default class LogoContact extends Object3D {
     _createModel() {
         const model = ResourceLoader.get('logo').scene;
         model.traverse((child) => { if (child.isMesh) child.material = this._material; });
-        this.add(model);
         return model;
     }
 
@@ -145,7 +146,6 @@ export default class LogoContact extends Object3D {
         this.scale.set(this._scaleValue, this._scaleValue, this._scaleValue);
         this.position.x = -this._width / 2 + this._position.x;
         this.position.y = this._height / 2 - this._position.y;
-        // this.position.z = 100;
     }
 
     _updateRotation() {

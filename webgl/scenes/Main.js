@@ -60,6 +60,10 @@ export default class Main extends Scene {
         return this._activeImage;
     }
 
+    get backgroundPlane() {
+        return this._backgroundPlane;
+    }
+
     get logoContact() {
         return this._logoContact;
     }

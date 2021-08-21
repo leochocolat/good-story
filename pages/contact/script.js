@@ -66,7 +66,8 @@ export default {
         transitionIn(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, { duration: 0.5, alpha: 1, ease: 'circ.inOut' });
+            timeline.to(this.$el, { duration: 0.5, alpha: 1, ease: 'sine.inOut' }, 0);
+            timeline.fromTo(this.$refs.container, { scale: 1.05 }, { duration: 1, scale: 1, ease: 'sine.out' }, 0);
             if (this.logo) timeline.add(this.logo.show(), 0);
 
             return timeline;
@@ -75,9 +76,9 @@ export default {
         transitionOut(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'circ.inOut' }, 0);
+            timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'sine.inOut' }, 0);
+            timeline.to(this.$refs.container, { duration: 0.5, scale: 1.05, ease: 'sine.in' }, 0);
             timeline.to(this.$root.webgl.scene, { duration: 1.5, progress: 0, ease: 'power3.inOut' }, 0);
-            console.log(this.logo);
             if (this.logo) timeline.add(this.logo.hide(), 0);
 
             timeline.to(this.tweenObject, {

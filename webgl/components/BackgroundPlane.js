@@ -1,4 +1,5 @@
 // Vendor
+import gsap from 'gsap';
 import { Mesh, MeshBasicMaterial, Object3D, PlaneBufferGeometry, ShaderMaterial, Texture, Vector2 } from 'three';
 
 // Utils
@@ -81,6 +82,18 @@ export default class BackgroundPlane extends Object3D {
         this._plane.material.uniforms.u_resolution.value.y = this._height;
     }
 
+    show() {
+        const timeline = new gsap.timeline();
+        timeline.to(this._material.uniforms.u_alpha, { duration: 1, value: 1, ease: 'sine.inOut' });
+        return timeline;
+    }
+
+    hide() {
+        const timeline = new gsap.timeline();
+        timeline.to(this._material.uniforms.u_alpha, { duration: 1, value: 0, ease: 'sine.inOut' });
+        return timeline;
+    }
+
     /**
      * Private
      */
@@ -90,7 +103,9 @@ export default class BackgroundPlane extends Object3D {
                 u_resolution: { value: new Vector2(this._width, this._height) },
                 u_texture: { value: null },
                 u_texture_size: { value: new Vector2(0, 0) },
+                u_alpha: { value: 0 },
             },
+            transparent: true,
             vertexShader: vertex,
             fragmentShader: fragment,
         });
@@ -102,7 +117,7 @@ export default class BackgroundPlane extends Object3D {
         const geometry = new PlaneBufferGeometry(1, 1, 1);
         const mesh = new Mesh(geometry, this._material);
         mesh.scale.set(this._width, this._height, 10);
-        // this.add(mesh);
+        this.add(mesh);
         return mesh;
     }
 }

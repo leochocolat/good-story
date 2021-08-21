@@ -1,5 +1,5 @@
 <template>
-    <div class="the-navigation">
+    <div class="navigation">
 
         <nuxt-link class="button" :to="route">
             {{ routeName }}

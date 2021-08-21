@@ -1,9 +1,7 @@
 <template>
     <div class="page-contact">
 
-        <Navigation route="/" route-name="Accueil" />
-
-        <div class="container">
+        <div ref="container" class="container">
 
             <div class="row">
 
@@ -56,6 +54,8 @@
             </div>
 
         </div>
+
+        <Navigation route="/" route-name="Accueil" />
 
     </div>
 </template>

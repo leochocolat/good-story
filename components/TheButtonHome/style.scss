@@ -1,4 +1,6 @@
 .button-home {
+    opacity: 0;
+
     position: fixed;
     top: vw(52px);
     left: vw(43px);
@@ -28,7 +30,7 @@ svg {
         &::v-deep {
             * {
                 fill: white;
-            }   
+            }
         }
     }
 }

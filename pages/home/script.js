@@ -78,7 +78,8 @@ export default {
         transitionIn(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, { duration: 0.5, alpha: 1, ease: 'circ.inOut' }, 0);
+            timeline.to(this.$el, { duration: 0.5, alpha: 1, ease: 'sine.inOut' }, 0);
+            if (this.isReady) timeline.add(this.$root.webgl.scene.backgroundPlane.show(), 0);
             timeline.add(this.$refs.buttonHold.show(), 0);
 
             return timeline;
@@ -87,9 +88,9 @@ export default {
         transitionOut(done, routeInfos) {
             const timeline = gsap.timeline({ onComplete: done });
 
-            timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'circ.inOut' }, 0);
-            timeline.to(this.$root.webgl.scene, { duration: 1.5, progress: 1, ease: 'power3.inOut' }, 0);
-            timeline.set(this.$root.webgl.scene, { activeImage: null }, 0);
+            timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'sine.inOut' }, 0);
+            if (this.isReady) timeline.to(this.$root.webgl.scene, { duration: 1.5, progress: 1, ease: 'power3.inOut' }, 0);
+            if (this.isReady) timeline.add(this.$root.webgl.scene.backgroundPlane.hide(), 0);
             timeline.add(this.$refs.buttonHold.hide(), 0);
 
             timeline.to(this.tweenObject, {
@@ -112,6 +113,7 @@ export default {
             this.setupTimelineRelease();
             this.setupEventListeners();
             this.$root.webgl.scene.activeImage = this.sections[this.currentIndex].image;
+            this.$root.webgl.scene.backgroundPlane.show();
         },
 
         setupTimelineHold() {

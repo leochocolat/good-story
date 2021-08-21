@@ -26,6 +26,15 @@ export default {
         this.timelineColor.progress(this.colorTransitionProgress);
     },
 
+    methods: {
+        show() {
+            const timeline = new gsap.timeline();
+            timeline.to(this.$el, { duration: 1, alpha: 1, ease: 'sine.inOut' }, 0);
+            timeline.fromTo(this.$el, { scale: 1.2 }, { duration: 1, scale: 1, ease: 'sine.out' }, 0);
+            return timeline;
+        },
+    },
+
     components: {
         Logo,
     },

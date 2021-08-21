@@ -30,6 +30,7 @@ export default class LogoBoolean extends Object3D {
                 small: 25,
             },
             minScale: 28,
+            maxScale: 38,
             lerp: 0.1,
             rotateX: -10,
             rotateY: 10,
@@ -125,7 +126,7 @@ export default class LogoBoolean extends Object3D {
 
     _getScaleValue() {
         const size = this._settings.size[Breakpoints.current];
-        const scale = Math.max(this._size(size), this._settings.minScale);
+        const scale = math.clamp(this._size(size), this._settings.minScale, this._settings.maxScale);
         return scale;
     }
 

@@ -4,6 +4,10 @@ import { Box3, MeshNormalMaterial, MeshStandardMaterial, Object3D, Vector2, Vect
 // Utils
 import math from '@/utils/math';
 import ResourceLoader from '@/utils/ResourceLoader';
+import Breakpoints from '@/utils/Breakpoints';
+
+// CSS Variables
+import { viewportWidthSmall, viewportWidthMedium, viewportWidthLarge, fontSizeSmall, fontSizeMedium, fontSizeLarge, maxWithLarge } from '@/assets/styles/resources/_variables.scss';
 
 export default class LogoBoolean extends Object3D {
     constructor(options) {
@@ -20,6 +24,11 @@ export default class LogoBoolean extends Object3D {
         this._progress = 0;
 
         this._settings = {
+            size: {
+                large: 30,
+                medium: 50,
+                small: 25,
+            },
             lerp: 0.1,
             rotateX: -10,
             rotateY: 10,
@@ -114,10 +123,11 @@ export default class LogoBoolean extends Object3D {
     }
 
     _getScaleValue() {
-        const scaleX = this._width / this._originalSize.x;
-        const scaleY = this._height / this._originalSize.y;
-        const scaleValue = (scaleX < scaleY ? scaleY : scaleX) * 1.2;
-        return scaleValue;
+        const size = this._settings.size[Breakpoints.current];
+        const scale = this._size(size);
+        console.log(scale);
+        // const scaleValue = (scaleX < scaleY ? scaleY : scaleX) * 1.2;
+        return scale;
     }
 
     _resizeModel() {
@@ -150,5 +160,41 @@ export default class LogoBoolean extends Object3D {
         animations.addInput(this._settings, 'targetPosition');
 
         return folder;
+    }
+
+    /**
+     * Utils
+     */
+    _media() {
+        const media = Breakpoints.current === 'small' ? 'small' : 'large';
+        return media;
+    }
+
+    _viewportWidth() {
+        const sizes = {
+            small: viewportWidthSmall,
+            medium: viewportWidthMedium,
+            large: viewportWidthLarge,
+        };
+
+        const viewportWidth = sizes[Breakpoints.current];
+
+        return parseFloat(viewportWidth);
+    }
+
+    _vw() {
+        const sizes = {
+            small: fontSizeSmall,
+            medium: fontSizeMedium,
+            large: fontSizeLarge,
+        };
+
+        const vw = parseFloat(sizes[Breakpoints.current]) / 100 * Math.min(this._width, parseFloat(maxWithLarge));
+
+        return vw;
+    }
+
+    _size(value) {
+        return (value / (this._viewportWidth() / 100)) * this._vw();
     }
 }

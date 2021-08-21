@@ -13,8 +13,8 @@ export default class WebGLApplication {
         this._canvas = options.canvas;
         this._nuxtRoot = options.nuxtRoot;
 
-        this._width = WindowResizeObserver.width;
-        this._height = WindowResizeObserver.height;
+        this._width = WindowResizeObserver.viewportWidth;
+        this._height = WindowResizeObserver.viewportHeight;
 
         this._debugger = this._nuxtRoot.debugger;
 

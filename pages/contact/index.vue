@@ -49,6 +49,8 @@
 
                     </div>
 
+                    <div ref="logoContainer" class="logo-container"></div>
+
                 </div>
 
             </div>

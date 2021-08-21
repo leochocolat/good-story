@@ -6,15 +6,22 @@ import gsap from 'gsap';
 import page from '@/mixins/page';
 import content from '@/mixins/content';
 
+// Utils
+import Breakpoints from '@/utils/Breakpoints';
+
 // Components
 import Navigation from '@/components/Navigation';
+import WindowResizeObserver from '@/utils/WindowResizeObserver';
 
 export default {
     mixins: [page, content],
 
     watch: {
         isReady(isReady) {
-            if (isReady) this.$root.webgl.scene.progress = 1;
+            if (isReady) {
+                this.$root.webgl.scene.progress = 1;
+                this.setupLogo();
+            };
         },
     },
 
@@ -32,7 +39,14 @@ export default {
 
         if (this.isReady) {
             this.$root.webgl.scene.progress = 1;
+            this.setupLogo();
         }
+
+        this.setupEventListeners();
+    },
+
+    beforeDestroy() {
+        this.removeEventListeners();
     },
 
     methods: {
@@ -53,6 +67,7 @@ export default {
             const timeline = gsap.timeline({ onComplete: done });
 
             timeline.to(this.$el, { duration: 0.5, alpha: 1, ease: 'circ.inOut' });
+            if (this.logo) timeline.add(this.logo.show(), 0);
 
             return timeline;
         },
@@ -62,6 +77,8 @@ export default {
 
             timeline.to(this.$el, { duration: 0.5, alpha: 0, ease: 'circ.inOut' }, 0);
             timeline.to(this.$root.webgl.scene, { duration: 1.5, progress: 0, ease: 'power3.inOut' }, 0);
+            console.log(this.logo);
+            if (this.logo) timeline.add(this.logo.hide(), 0);
 
             timeline.to(this.tweenObject, {
                 duration: 0.3,
@@ -73,6 +90,47 @@ export default {
             }, 0.4);
 
             return timeline;
+        },
+
+        /**
+         * Private
+         */
+        setupLogo() {
+            if (Breakpoints.current === 'small') return;
+
+            const bounds = this.$refs.logoContainer.getBoundingClientRect();
+
+            if (this.$root.webgl.scene.logoContact) {
+                this.logo = this.$root.webgl.scene.logoContact;
+            } else {
+                this.logo = this.$root.webgl.scene.createLogoContact({
+                    containerWidth: bounds.width,
+                    containerHeight: bounds.height,
+                    position: { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 },
+                });
+            }
+
+            this.logo.show();
+        },
+
+        setupEventListeners() {
+            WindowResizeObserver.addEventListener('resize', this.resizeHandler);
+        },
+
+        removeEventListeners() {
+            WindowResizeObserver.removeEventListener('resize', this.resizeHandler);
+        },
+
+        resizeHandler() {
+            const bounds = this.$refs.logoContainer.getBoundingClientRect();
+
+            this.$root.webgl.scene.resizeLogoContact({
+                width: WindowResizeObserver.width,
+                height: WindowResizeObserver.height,
+                containerWidth: bounds.width,
+                containerHeight: bounds.height,
+                position: { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 },
+            });
         },
     },
 

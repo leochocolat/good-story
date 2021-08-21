@@ -9,7 +9,7 @@
     width: vw(200px);
 
     margin: auto;
-    
+
     @include respond-to('large') {
         bottom: vw-l(55px);
 
@@ -69,10 +69,14 @@
 .center {
     position: absolute;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
 
     width: 100%;
     height: 100%;
+
+    margin: auto;
 
     background-color: $color-black;
 

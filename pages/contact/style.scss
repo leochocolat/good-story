@@ -8,19 +8,19 @@
 
     font-weight: 100;
 
-    font-size: rem(20px);
+    font-size: rem(17px);
 
     color: $color-white;
-    
+
     @include respond-to('large') {
         position: fixed;
         top: 0;
         left: 0;
 
-        font-size: rem-l(20px);
+        font-size: rem-l(17px);
     }
-    // background-color: $color-black;
 }
+
 .container {
     margin-top: vw(178px);
 
@@ -55,7 +55,7 @@
 
 .col {
     width: vw(336px);
-    
+
     @include respond-to('large') {
         width: vw-l(336px);
     }
@@ -84,7 +84,7 @@
 
 .block-infos {
     margin-bottom: vw(45px);
-    
+
     @include respond-to('large') {
         margin-bottom: vw-l(45px);
     }
@@ -97,5 +97,15 @@ a {
 
     &:hover {
         opacity: 0.7;
+    }
+}
+
+.logo-container {
+    width: 0;
+    height: 0;
+
+    @include respond-to('large') {
+        width: vw-l(177px);
+        height: vw-l(115px);
     }
 }

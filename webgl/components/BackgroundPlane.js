@@ -102,7 +102,7 @@ export default class BackgroundPlane extends Object3D {
         const geometry = new PlaneBufferGeometry(1, 1, 1);
         const mesh = new Mesh(geometry, this._material);
         mesh.scale.set(this._width, this._height, 10);
-        this.add(mesh);
+        // this.add(mesh);
         return mesh;
     }
 }

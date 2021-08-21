@@ -125,8 +125,6 @@ export default class LogoBoolean extends Object3D {
     _getScaleValue() {
         const size = this._settings.size[Breakpoints.current];
         const scale = this._size(size);
-        console.log(scale);
-        // const scaleValue = (scaleX < scaleY ? scaleY : scaleX) * 1.2;
         return scale;
     }
 
@@ -134,6 +132,7 @@ export default class LogoBoolean extends Object3D {
         this.scale.set(this._scaleValue, this._scaleValue, this._scaleValue);
         this.position.z = this._originalSize.z * this._scaleValue * 7;
         this._initialPosition.z = this.position.z;
+        this.position.z = this._initialPosition.z + this._settings.targetPosition.z * this._progress;
     }
 
     _updateRotation() {

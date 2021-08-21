@@ -1,11 +1,16 @@
 html {
     font-family: 'Roboto', sans-serif, Helvetica;
     font-size: $base-font-size;
+
     color: black;
+
+    background-color: black;
 }
 
 body {
     font-size: rem-l(30px);
+
+    background-color: black;
 
     * {
         @include unselectable();

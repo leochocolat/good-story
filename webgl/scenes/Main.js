@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // Components
 import UICamera from '../components/UICamera';
 import LogoBoolean from '../components/LogoBoolean';
+import LogoContact from '../components/LogoContact';
 import BackgroundPlane from '../components/BackgroundPlane';
 
 export default class Main extends Scene {
@@ -23,11 +24,12 @@ export default class Main extends Scene {
         this._activeImage = null;
 
         this._camera = this._createCamera();
-        // this._controls = this._createControls();
+        this._controls = this._createControls();
         this._ambiantLight = this._createAmbiantLight();
         this._light = this._createLight();
         this._logo = this._createLogo();
         this._backgroundPlane = this._createBackgroundPlane();
+        this._logoContact = null;
         this._debugFolder = this._createDebugFolder();
     }
 
@@ -36,6 +38,7 @@ export default class Main extends Scene {
      */
     update() {
         this._logo.update();
+        this._logoContact?.update();
     }
 
     destroy() {
@@ -55,6 +58,10 @@ export default class Main extends Scene {
 
     get activeImage() {
         return this._activeImage;
+    }
+
+    get logoContact() {
+        return this._logoContact;
     }
 
     /**
@@ -88,6 +95,35 @@ export default class Main extends Scene {
         this._mousePosition = position;
 
         this._logo.mousemove(this._mousePosition);
+        this._logoContact?.mousemove(this._mousePosition);
+    }
+
+    createLogoContact(options) {
+        this._logoContact = new LogoContact({
+            canvas: this._canvas,
+            renderer: this._renderer,
+            nuxtRoot: this._nuxtRoot,
+            width: this._width,
+            height: this._height,
+            mousePosition: this._mousePosition,
+            debugger: this._debugger,
+            // Custom
+            ...options,
+        });
+
+        this.add(this._logoContact);
+
+        return this._logoContact;
+    }
+
+    resizeLogoContact({ width, height, containerWidth, containerHeight, position }) {
+        this._logoContact?.resize({
+            width,
+            height,
+            containerWidth,
+            containerHeight,
+            position,
+        });
     }
 
     /**
@@ -107,7 +143,7 @@ export default class Main extends Scene {
 
     _createControls() {
         if (!this._debugger) return;
-        const controls = new OrbitControls(this._camera, document.documentElement);
+        const controls = new OrbitControls(this._camera, document.body);
         return controls;
     }
 

@@ -33,16 +33,17 @@ export default class BackgroundPlane extends Object3D {
         this._settings = {
             effect: {
                 minIntensity: 0.5,
-                maxIntensity: 2.5,
+                maxIntensity: 2.3,
                 intensity: {
                     small: 1,
-                    medium: 2,
-                    large: 2.3,
+                    medium: 1.7,
+                    large: 1.7,
                 },
             },
         };
 
-        this._effectIntensity = this._size(this._settings.effect.intensity[Breakpoints.current]);
+        this._effectIntensity = this._settings.effect.intensity[Breakpoints.current];
+        // this._effectIntensity = this._size(this._settings.effect.intensity[Breakpoints.current]);
         this._effectIntensity = math.clamp(this._effectIntensity, this._settings.effect.minIntensity, this._settings.effect.maxIntensity);
 
         this._progress = 0;
@@ -139,11 +140,9 @@ export default class BackgroundPlane extends Object3D {
         this._plane.material.uniforms.u_resolution.value.x = this._width;
         this._plane.material.uniforms.u_resolution.value.y = this._height;
 
-        this._effectIntensity = this._size(this._settings.effect.intensity[Breakpoints.current]);
+        this._effectIntensity = this._settings.effect.intensity[Breakpoints.current];
+        // this._effectIntensity = this._size(this._settings.effect.intensity[Breakpoints.current]);
         this._effectIntensity = math.clamp(this._effectIntensity, this._settings.effect.minIntensity, this._settings.effect.maxIntensity);
-
-        console.log(this._effectIntensity);
-
         this._plane.material.uniforms.u_effect_strength.value = this._effectIntensity;
     }
 

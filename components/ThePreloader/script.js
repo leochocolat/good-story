@@ -12,7 +12,8 @@ export default {
 
     methods: {
         setupResources() {
-            this.resourceLoader = new ResourceLoader(resources, './');
+            const basePath = this.$router.options.base === '/' ? '' : this.$router.options.base;
+            this.resourceLoader = new ResourceLoader(resources, basePath);
         },
 
         setupEventListeners() {

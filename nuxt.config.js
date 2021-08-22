@@ -9,17 +9,18 @@ export default {
      ** See https://nuxtjs.org/api/configuration-head
      */
     head: {
-        title: process.env.npm_package_name || '',
+        title: 'Good Story - Live and Digital Experiences',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            {
-                hid: 'description',
-                name: 'description',
-                content: process.env.npm_package_description || '',
-            },
+            { hid: 'description', name: 'description', property: 'description', content: "Good Story raconte et met en scène votre histoire à travers un véritable parcours d'expériences. Chaque événement (live, digital, immersif) possède sa propre identité. Sa finalité est de nourrir et embarquer vos communautés sur la durée." },
+            { hid: 'og:title', name: 'og:title', property: 'og:title', content: 'Good Story - Live and Digital Experiences' },
+            { hid: 'og:description', name: 'og:description', property: 'og:description', content: "Good Story raconte et met en scène votre histoire à travers un véritable parcours d'expériences. Chaque événement (live, digital, immersif) possède sa propre identité. Sa finalité est de nourrir et embarquer vos communautés sur la durée." },
+            { hid: 'og:type', name: 'og:type', property: 'og:type', content: 'website' },
+            { hid: 'og:url', name: 'og:url', property: 'og:url', content: 'https://www.goodstory.events/' },
+            { hid: 'og:image', name: 'og:image', property: 'og:image', content: '/images/image-5.jpg' },
         ],
-        // link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+        link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
     },
     /*
      ** CSS Style Resources

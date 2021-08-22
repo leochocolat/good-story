@@ -25,7 +25,7 @@ export default class LogoBoolean extends Object3D {
 
         this._settings = {
             size: {
-                large: 30,
+                large: 33,
                 medium: 50,
                 small: 25,
             },

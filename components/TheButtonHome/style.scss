@@ -16,12 +16,11 @@ svg {
     top: 0;
     left: 0;
 
-    width: vw(127px);
-    height: vw(45px);
+    width: vw(135px);
+    height: auto;
 
     @include respond-to('large') {
-        width: vw-l(127px);
-        height: vw-l(45px);
+        width: vw-l(135px);
     }
 
     &.white {

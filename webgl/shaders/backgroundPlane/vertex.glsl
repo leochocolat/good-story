@@ -3,6 +3,7 @@ uniform vec2 u_texture_size;
 
 varying vec2 v_uv;
 varying vec2 v_uv_r;
+varying vec4 v_position;
 
 vec2 resized_uv(vec2 inital_uv, vec2 resolution, vec2 aspect_ratio)
 {
@@ -29,9 +30,14 @@ float cubicPulse( float c, float w, float x ){
 void main() {
     v_uv = uv;
 
+    vec4 glPos = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+    v_position = glPos;
+    v_position.xyz /= v_position.w;
+
     // Resize
     v_uv_r = resized_uv(v_uv, u_resolution, u_texture_size);
 
 	// Output
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);;
+    gl_Position = glPos;
 }

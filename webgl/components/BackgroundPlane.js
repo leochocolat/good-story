@@ -4,6 +4,7 @@ import { Mesh, MeshBasicMaterial, Object3D, PlaneBufferGeometry, ShaderMaterial,
 
 // Utils
 import ResourceLoader from '@/utils/ResourceLoader';
+import easings from '@/utils/easings';
 
 // Assets
 import data from '@/assets/data';
@@ -22,13 +23,16 @@ export default class BackgroundPlane extends Object3D {
         this._width = options.width;
         this._height = options.height;
         this._mousePosition = options.mousePosition;
+        this._debugger = options.debugger;
 
         this._progress = 0;
-        this._activeImage = null;
-        this._activeTexture = null;
+        this._activeImage = 'https://images.unsplash.com/photo-1628716572776-8a2e8efbad1e?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3MXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60';
+        this._activeTexture = (!this._activeImage || this._activeImage !== 'null') ? ResourceLoader.get(this._activeImage) : null;
 
         this._material = this._createMaterial();
         this._plane = this._createPlane();
+
+        this._debugFolder = this._createDebugFolder();
     }
 
     /**
@@ -58,6 +62,7 @@ export default class BackgroundPlane extends Object3D {
      */
     set progress(progress) {
         this._progress = progress;
+        this._material.uniforms.u_transition_progress.value = easings.easeInOutSine(this._progress);
     }
 
     set activeImage(image) {
@@ -101,9 +106,11 @@ export default class BackgroundPlane extends Object3D {
         const material = new ShaderMaterial({
             uniforms: {
                 u_resolution: { value: new Vector2(this._width, this._height) },
-                u_texture: { value: null },
-                u_texture_size: { value: new Vector2(0, 0) },
-                u_alpha: { value: 0 },
+                u_texture: { value: this._activeTexture },
+                u_texture_size: { value: this._activeTexture ? new Vector2(this._activeTexture.image.width, this._activeTexture.image.height) : new Vector2() },
+                u_alpha: { value: 1 },
+                u_effect_strength: { value: 2.3 },
+                u_transition_progress: { value: 0 },
             },
             transparent: true,
             vertexShader: vertex,
@@ -119,5 +126,16 @@ export default class BackgroundPlane extends Object3D {
         mesh.scale.set(this._width, this._height, 10);
         this.add(mesh);
         return mesh;
+    }
+
+    /**
+     * Debug
+     */
+    _createDebugFolder() {
+        if (!this._debugger) return;
+
+        const debugFolder = this._debugger.addFolder({ title: 'Background Plane' });
+        debugFolder.addInput(this._material.uniforms.u_effect_strength, 'value', { label: 'Effect Strength', min: 0, max: 5 });
+        debugFolder.addInput(this._material.uniforms.u_transition_progress, 'value', { label: 'Transition', min: 0, max: 1 });
     }
 }

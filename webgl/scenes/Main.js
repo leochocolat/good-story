@@ -24,7 +24,7 @@ export default class Main extends Scene {
         this._activeImage = null;
 
         this._camera = this._createCamera();
-        this._controls = this._createControls();
+        // this._controls = this._createControls();
         this._ambiantLight = this._createAmbiantLight();
         this._light = this._createLight();
         this._logo = this._createLogo();

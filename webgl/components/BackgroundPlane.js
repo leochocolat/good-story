@@ -6,6 +6,7 @@ import { Mesh, MeshBasicMaterial, Object3D, PlaneBufferGeometry, ShaderMaterial,
 import ResourceLoader from '@/utils/ResourceLoader';
 import easings from '@/utils/easings';
 import math from '@/utils/math';
+import Breakpoints from '@/utils/Breakpoints';
 
 // Assets
 import data from '@/assets/data';
@@ -13,6 +14,9 @@ import data from '@/assets/data';
 // Shaders
 import vertex from '@/webgl/shaders/backgroundPlane/vertex.glsl';
 import fragment from '@/webgl/shaders/backgroundPlane/fragment.glsl';
+
+// CSS Variables
+import { viewportWidthSmall, viewportWidthMedium, viewportWidthLarge, fontSizeSmall, fontSizeMedium, fontSizeLarge, maxWithLarge } from '@/assets/styles/resources/_variables.scss';
 
 export default class BackgroundPlane extends Object3D {
     constructor(options) {
@@ -25,6 +29,21 @@ export default class BackgroundPlane extends Object3D {
         this._height = options.height;
         this._mousePosition = options.mousePosition;
         this._debugger = options.debugger;
+
+        this._settings = {
+            effect: {
+                minIntensity: 0.5,
+                maxIntensity: 2.5,
+                intensity: {
+                    small: 1,
+                    medium: 2,
+                    large: 2.3,
+                },
+            },
+        };
+
+        this._effectIntensity = this._size(this._settings.effect.intensity[Breakpoints.current]);
+        this._effectIntensity = math.clamp(this._effectIntensity, this._settings.effect.minIntensity, this._settings.effect.maxIntensity);
 
         this._progress = 0;
 
@@ -119,6 +138,13 @@ export default class BackgroundPlane extends Object3D {
 
         this._plane.material.uniforms.u_resolution.value.x = this._width;
         this._plane.material.uniforms.u_resolution.value.y = this._height;
+
+        this._effectIntensity = this._size(this._settings.effect.intensity[Breakpoints.current]);
+        this._effectIntensity = math.clamp(this._effectIntensity, this._settings.effect.minIntensity, this._settings.effect.maxIntensity);
+
+        console.log(this._effectIntensity);
+
+        this._plane.material.uniforms.u_effect_strength.value = this._effectIntensity;
     }
 
     show() {
@@ -148,7 +174,7 @@ export default class BackgroundPlane extends Object3D {
                 u_texture_size: { value: this._activeTexture ? new Vector2(this._activeTexture.image.width, this._activeTexture.image.height) : new Vector2() },
                 // Transitions & Animations
                 u_alpha: { value: 1 },
-                u_effect_strength: { value: 2.3 },
+                u_effect_strength: { value: this._effectIntensity },
                 u_zoom_progress: { value: 0 },
                 u_transition_progress: { value: 0 },
             },
@@ -166,6 +192,42 @@ export default class BackgroundPlane extends Object3D {
         mesh.scale.set(this._width, this._height, 10);
         this.add(mesh);
         return mesh;
+    }
+
+    /**
+     * Utils
+     */
+    _media() {
+        const media = Breakpoints.current === 'small' ? 'small' : 'large';
+        return media;
+    }
+
+    _viewportWidth() {
+        const sizes = {
+            small: viewportWidthSmall,
+            medium: viewportWidthMedium,
+            large: viewportWidthLarge,
+        };
+
+        const viewportWidth = sizes[Breakpoints.current];
+
+        return parseFloat(viewportWidth);
+    }
+
+    _vw() {
+        const sizes = {
+            small: fontSizeSmall,
+            medium: fontSizeMedium,
+            large: fontSizeLarge,
+        };
+
+        const vw = parseFloat(sizes[Breakpoints.current]) / 100 * Math.min(this._width, parseFloat(maxWithLarge));
+
+        return vw;
+    }
+
+    _size(value) {
+        return (value / (this._viewportWidth() / 100)) * this._vw();
     }
 
     /**

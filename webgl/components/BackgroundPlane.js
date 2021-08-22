@@ -28,7 +28,9 @@ export default class BackgroundPlane extends Object3D {
 
         this._progress = 0;
 
-        this._activeImage = 'https://images.unsplash.com/photo-1628716572776-8a2e8efbad1e?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3MXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60';
+        this._activeImage = null;
+        // Debug
+        // this._activeImage = 'https://images.unsplash.com/photo-1628716572776-8a2e8efbad1e?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3MXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60';
         this._activeTexture = (this._activeImage && this._activeImage !== 'null') ? ResourceLoader.get(this._activeImage) : null;
 
         this._nextImage = null;

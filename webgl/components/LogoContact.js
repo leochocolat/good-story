@@ -26,8 +26,8 @@ export default class LogoContact extends Object3D {
 
         this._settings = {
             lerp: 0.1,
-            rotateX: -90,
-            rotateY: 90,
+            rotateX: -45,
+            rotateY: 45,
             opacity: 0,
         };
 

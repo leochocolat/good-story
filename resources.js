@@ -34,12 +34,12 @@ const models = [
     {
         name: 'logo',
         type: 'gltf',
-        path: './models/logo.gltf',
+        path: 'models/logo.gltf',
     },
     {
         name: 'logo-reversed',
         type: 'gltf',
-        path: './models/logo-reversed.gltf',
+        path: 'models/logo-reversed.gltf',
     },
 ];
 

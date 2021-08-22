@@ -13,10 +13,10 @@
 
 .button {
     font-weight: 700;
-    font-size: rem(20px);
+    font-size: rem(17px);
     text-transform: uppercase;
 
     @include respond-to('large') {
-        font-size: rem-l(20px);
+        font-size: rem-l(17px);
     }
 }

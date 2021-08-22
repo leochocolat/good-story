@@ -8,9 +8,13 @@ html {
 }
 
 body {
-    font-size: rem-l(30px);
+    font-size: rem(17px);
 
     background-color: black;
+
+    @include respond-to('large') {
+        font-size: rem-l(17px);
+    }
 
     * {
         @include unselectable();

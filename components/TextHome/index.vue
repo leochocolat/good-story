@@ -1,6 +1,12 @@
 <template>
     <div class="text-home">
 
+        <div class="title">
+
+            GoodStory c'est
+
+        </div>
+
         {{ content }}
 
     </div>

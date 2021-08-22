@@ -28,8 +28,8 @@ export default {
             delta: 0,
             holdProgress: 0,
             labels: {
-                notouch: '<b>Maintenez</b> le click',
-                touchstart: '<b>Maintenez</b> le click',
+                notouch: '<b>Maintenez</b> appuyé',
+                touchstart: '<b>Maintenez</b> appuyé',
                 touchcomplete: '<b>Lachez</b> pour revenir',
             },
         };

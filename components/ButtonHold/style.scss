@@ -19,11 +19,11 @@
 
 .label {
     font-weight: 200;
-    font-size: rem(20px);
+    font-size: rem(17px);
     text-align: center;
 
     @include respond-to('large') {
-        font-size: rem-l(20px);
+        font-size: rem-l(17px);
     }
 
     &::v-deep {
@@ -36,11 +36,11 @@
 .container {
     position: absolute;
     right: 0;
-    bottom: vw(40px);
+    bottom: vw(35px);
     left: 0;
 
-    width: vw(64px);
-    height: vw(64px);
+    width: vw(52px);
+    height: vw(52px);
 
     margin: auto;
 
@@ -59,10 +59,10 @@
     // }
 
     @include respond-to('large') {
-        bottom: vw-l(41px);
+        bottom: vw-l(35px);
 
-        width: vw-l(64px);
-        height: vw-l(64px);
+        width: vw-l(52px);
+        height: vw-l(52px);
     }
 }
 

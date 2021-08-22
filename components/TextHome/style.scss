@@ -9,10 +9,23 @@
     color: $color-white;
 
     text-align: center;
-    
+
     @include respond-to('large') {
         width: rem-l(1000px);
 
-        font-size: rem-l(50px);
+        font-size: rem-l(40px);
+    }
+}
+
+.title {
+    margin-bottom: rem(15px);
+
+    font-weight: 300;
+    font-size: rem(25px);
+
+    @include respond-to('large') {
+        margin-bottom: rem-l(20px);
+
+        font-size: rem-l(30px);
     }
 }

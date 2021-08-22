@@ -9,7 +9,8 @@ export default {
 
         sections() {
             const sections = [];
-            const offset = Math.round(Math.random() * 1000);
+            // const offset = Math.round(Math.random() * 1000);
+            const offset = 0;
 
             for (let i = 0; i < this.data.images.length; i++) {
                 const image = this.data.images[(i + offset) % this.data.images.length];

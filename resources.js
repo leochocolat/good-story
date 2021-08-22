@@ -54,7 +54,7 @@ const textures = () => {
             name: image,
             type: 'texture',
             path: image,
-            isAbsolutePath: true,
+            isAbsolutePath: false,
         };
     });
 };

@@ -1,16 +1,18 @@
 export default {
     images: [
-        'https://images.unsplash.com/photo-1628887391400-0c8cc8f3fac1?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
-        'https://images.unsplash.com/photo-1628875875375-70297dcc9977?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
-        'https://images.unsplash.com/photo-1628847022112-822475a94a78?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1N3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
-        'https://images.unsplash.com/photo-1628779238951-be2c9f2a59f4?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2Mnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
-        'https://images.unsplash.com/photo-1628716572776-8a2e8efbad1e?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3MXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+        '/images/image-1.jpg',
+        '/images/image-2.jpg',
+        '/images/image-3.jpg',
+        '/images/image-4.jpg',
+        '/images/image-5.jpg',
+        '/images/image-6.jpg',
     ],
 
     sentences: [
         'Émouvant avec Norah Amsellem l’une des plus grandes sopranos',
         'Envoûtant, avec la grâce du duo Andalou à Alicante.',
         'Fascinant, avec une soirée unique dans la vallée de Judée.',
+        'Vibrant, avec un road trip en Harley à la découverte de la péninsule du Cap.',
         'Époustouflant, avec une rencontre sauvage en Tanzanie.',
         'Palpitant, avec un match de hockey sur la Place Rouge à Moscou.',
     ],

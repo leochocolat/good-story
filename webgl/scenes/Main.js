@@ -178,7 +178,7 @@ export default class Main extends Scene {
             debugger: this._debugger,
         });
 
-        this.add(logo);
+        // this.add(logo);
 
         return logo;
     }

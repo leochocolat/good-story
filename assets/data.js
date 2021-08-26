@@ -24,11 +24,11 @@ export default {
         },
         email: {
             title: 'Email',
-            emails: ['goodstorydamien@goodstory.fr', 'paulinegood@goodstory.fr'],
+            emails: ['hello@goodstory.events'],
         },
         phone: {
             title: 'Téléphone',
-            phones: ['06.98.09.22.45', '07.34.23.53.55'],
+            phones: ['01.89.16.70.96'],
         },
         socials: {
             title: 'Réseaux sociaux',

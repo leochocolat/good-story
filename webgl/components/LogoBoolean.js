@@ -1,5 +1,5 @@
 // Vendor
-import { Box3, MeshNormalMaterial, MeshStandardMaterial, Object3D, Vector2, Vector3 } from 'three';
+import { Box3, Color, MeshNormalMaterial, MeshStandardMaterial, Object3D, Vector2, Vector3 } from 'three';
 
 // Utils
 import math from '@/utils/math';
@@ -25,7 +25,7 @@ export default class LogoBoolean extends Object3D {
 
         this._settings = {
             size: {
-                large: 33,
+                large: 25,
                 medium: 50,
                 small: 25,
             },
@@ -35,6 +35,7 @@ export default class LogoBoolean extends Object3D {
             rotateX: -10,
             rotateY: 10,
             targetPosition: new Vector3(70, 0, 500),
+            logoColor: '#ff0000',
         };
 
         this._rotation = {
@@ -46,6 +47,8 @@ export default class LogoBoolean extends Object3D {
 
         this._initialPosition = new Vector3();
 
+        this._material = this._createMaterial();
+        this._textMaterial = this._createTextMaterial();
         this._model = this._createModel();
 
         this._originalSize = this._getOriginalSize();
@@ -109,10 +112,28 @@ export default class LogoBoolean extends Object3D {
     /**
      * Private
      */
+    _createMaterial() {
+        const material = new MeshStandardMaterial({ color: 'white' });
+        return material;
+    }
+
+    _createTextMaterial() {
+        const material = new MeshStandardMaterial({ color: '#bdbdbd' });
+        return material;
+    }
+
     _createModel() {
         const model = ResourceLoader.get('logo-reversed').scene;
-        const material = new MeshStandardMaterial({ color: 'white' });
-        model.traverse((child) => { if (child.isMesh) child.material = material; });
+        model.traverse((child) => {
+            if (child.name === 'mur_creusé') {
+                child.material = this._material;
+                console.log(child);
+            };
+            if (child.name === 'goodstory') {
+                child.material = this._textMaterial;
+                console.log(child);
+            };
+        });
         this.add(model);
         return model;
     }
@@ -151,6 +172,11 @@ export default class LogoBoolean extends Object3D {
     _createDebugFolder() {
         if (!this._debugger) return;
         const folder = this._debugger.addFolder({ title: 'Logo' });
+
+        const model = folder.addFolder({ title: 'Model' });
+        model.addInput(this._settings, 'logoColor', { label: 'Logo Color' }).on('change', () => {
+            this._textMaterial.color = new Color(this._settings.logoColor);
+        });
 
         const interactions = folder.addFolder({ title: 'Interactions' });
         interactions.addInput(this._settings, 'lerp', { min: 0, max: 1 });

@@ -27,6 +27,7 @@ export default {
             currentIndex: 0,
             delta: 0,
             holdProgress: 0,
+            isTextVisible: false,
             labels: {
                 notouch: '<b>Maintenez</b> appuyé',
                 touchstart: '<b>Maintenez</b> appuyé',
@@ -45,6 +46,23 @@ export default {
     watch: {
         isReady(isReady) {
             if (isReady) this.setup();
+        },
+
+        holdProgress(progress) {
+            const treshold = 0.7;
+            if (progress > treshold) {
+                this.isTextVisible = true;
+            } else {
+                this.isTextVisible = false;
+            }
+        },
+
+        isTextVisible(isVisible) {
+            if (isVisible) {
+                this.$refs.text.show();
+            } else {
+                this.$refs.text.hide();
+            }
         },
     },
 
@@ -170,7 +188,7 @@ export default {
 
             this.state = 'notouch';
 
-            this.$refs.text.hide();
+            // this.$refs.text.hide();
         },
 
         tickHandler() {
@@ -194,7 +212,7 @@ export default {
         onHoldCompleteHandler() {
             this.state = 'touchcomplete';
             this.allowRelease = true;
-            this.$refs.text.show();
+            // this.$refs.text.show();
         },
 
         onReleaseCompleteHandler() {

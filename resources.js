@@ -36,13 +36,13 @@ const models = [
         type: 'gltf',
         path: '/models/logo.gltf',
     },
-    // {
-    //     name: 'logo-reversed',
-    //     type: 'gltf',
-    //     path: '/models/logo-reversed.gltf',
-    // },
     {
         name: 'logo-reversed',
+        type: 'gltf',
+        path: '/models/logo-reversed.gltf',
+    },
+    {
+        name: 'logo-reversed-v2',
         type: 'gltf',
         path: '/models/logo-reversed-v2.gltf',
     },

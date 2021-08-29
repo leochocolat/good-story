@@ -4,11 +4,13 @@ import gsap from 'gsap';
 
 // SVG
 import Logo from '@/assets/icons/logo.svg?inline';
+import LogoShort from '@/assets/icons/short_logo.svg?inline';
 
 export default {
     computed: {
         ...mapGetters({
             colorTransitionProgress: 'animations/colorTransitionProgress',
+            breakpoint: 'device/breakpoint',
         }),
     },
 
@@ -37,5 +39,6 @@ export default {
 
     components: {
         Logo,
+        LogoShort,
     },
 };

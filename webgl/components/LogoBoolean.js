@@ -25,17 +25,17 @@ export default class LogoBoolean extends Object3D {
 
         this._settings = {
             size: {
-                large: 25,
+                large: 28,
                 medium: 50,
                 small: 25,
             },
-            minScale: 28,
-            maxScale: 38,
+            minScale: 20,
+            maxScale: 35,
             lerp: 0.1,
             rotateX: -10,
             rotateY: 10,
             targetPosition: new Vector3(70, 0, 500),
-            logoColor: '#ff0000',
+            logoColor: '#898989',
         };
 
         this._rotation = {
@@ -118,20 +118,19 @@ export default class LogoBoolean extends Object3D {
     }
 
     _createTextMaterial() {
-        const material = new MeshStandardMaterial({ color: '#bdbdbd' });
+        const material = new MeshStandardMaterial({ color: this._settings.logoColor });
         return material;
     }
 
     _createModel() {
-        const model = ResourceLoader.get('logo-reversed').scene;
+        const model = Breakpoints.current === 'small' ? ResourceLoader.get('logo-reversed').scene : ResourceLoader.get('logo-reversed-v2').scene;
+
         model.traverse((child) => {
             if (child.name === 'mur_creusé') {
                 child.material = this._material;
-                console.log(child);
             };
             if (child.name === 'goodstory') {
                 child.material = this._textMaterial;
-                console.log(child);
             };
         });
         this.add(model);

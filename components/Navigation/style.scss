@@ -1,13 +1,13 @@
 .navigation {
     position: fixed;
-    top: vw(52px);
-    right: vw(43px);
+    top: rem(52px);
+    right: rem(43px);
 
     text-align: right;
 
     @include respond-to('large') {
-        top: vw-l(55px);
-        right: vw-l(63px);
+        top: rem-l(55px);
+        right: rem-l(63px);
     }
 }
 

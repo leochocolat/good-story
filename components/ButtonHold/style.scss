@@ -3,17 +3,17 @@
 
     position: absolute;
     right: 0;
-    bottom: vw(55px);
+    bottom: rem(55px);
     left: 0;
 
-    width: vw(200px);
+    width: rem(200px);
 
     margin: auto;
 
     @include respond-to('large') {
-        bottom: vw-l(55px);
+        bottom: rem-l(55px);
 
-        width: vw-l(200px);
+        width: rem-l(200px);
     }
 }
 
@@ -36,11 +36,11 @@
 .container {
     position: absolute;
     right: 0;
-    bottom: vw(35px);
+    bottom: rem(35px);
     left: 0;
 
-    width: vw(52px);
-    height: vw(52px);
+    width: rem(52px);
+    height: rem(52px);
 
     margin: auto;
 
@@ -59,10 +59,10 @@
     // }
 
     @include respond-to('large') {
-        bottom: vw-l(35px);
+        bottom: rem-l(35px);
 
-        width: vw-l(52px);
-        height: vw-l(52px);
+        width: rem-l(52px);
+        height: rem-l(52px);
     }
 }
 

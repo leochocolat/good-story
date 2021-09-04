@@ -20,7 +20,7 @@ export default {
     contact: {
         intro: {
             title: 'Qui sommes nous ?',
-            content: 'Depuis 8 ans, Good Story crée des événements au service des entreprises.<br><br> En France, en Europe et à travers le monde, l’agence vous fait vivre des expériences marquantes, engageantes, inspirantes et innovantes.<br><br>Elles font sens avec votre vision et embarquent vos communautés sur la durée. <br><br>Bien raconter une histoire, c’est délivrer le bon message, aux bonne personnes, au bon endroit au bon moment...',
+            content: 'En France, En Europe et à travers le monde, Good Story vous fait vivre des expériences marquantes, engageantes, inspirantes et innovantes.<br><br>Elles font sens avec votre vision et embarquent votre communauté sur la durée.<br><br>Bien raconter une histoire, c’est délivrer le bon message, aux bonnes personnes, au bon endroit, au bon moment...',
         },
         email: {
             title: 'Email',

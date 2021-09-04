@@ -1,10 +1,20 @@
 html {
+    overflow-x: hidden;
+
     font-family: 'Roboto', sans-serif, Helvetica;
-    font-size: $base-font-size;
+    font-size: $font-size-small;
 
     color: black;
 
     background-color: black;
+
+    @include respond-to('medium') {
+        font-size: $font-size-medium;
+    }
+
+    @include respond-to('large') {
+        font-size: $font-size-large;
+    }
 }
 
 body {

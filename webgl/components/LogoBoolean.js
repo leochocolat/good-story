@@ -26,7 +26,7 @@ export default class LogoBoolean extends Object3D {
         this._settings = {
             size: {
                 large: 28,
-                medium: 50,
+                medium: 35,
                 small: 25,
             },
             minScale: 20,
@@ -34,7 +34,11 @@ export default class LogoBoolean extends Object3D {
             lerp: 0.1,
             rotateX: -10,
             rotateY: 10,
-            targetPosition: new Vector3(70, 0, 500),
+            targetPosition: {
+                large: new Vector3(70, 0, 500),
+                medium: new Vector3(60, 0, 500),
+                small: new Vector3(45, 0, 500),
+            },
             logoColor: '#898989',
         };
 
@@ -82,9 +86,9 @@ export default class LogoBoolean extends Object3D {
      */
     set progress(progress) {
         this._progress = progress;
-        this.position.x = this._initialPosition.x + (this._settings.targetPosition.x * this._side) * progress;
-        this.position.y = this._initialPosition.y + this._settings.targetPosition.y * progress;
-        this.position.z = this._initialPosition.z + this._settings.targetPosition.z * progress;
+        this.position.x = this._initialPosition.x + (this._size(this._settings.targetPosition[Breakpoints.current].x) * this._side) * progress;
+        this.position.y = this._initialPosition.y + this._settings.targetPosition[Breakpoints.current].y * progress;
+        this.position.z = this._initialPosition.z + this._settings.targetPosition[Breakpoints.current].z * progress;
     }
 
     /**
@@ -154,7 +158,7 @@ export default class LogoBoolean extends Object3D {
         this.scale.set(this._scaleValue, this._scaleValue, this._scaleValue);
         this.position.z = this._originalSize.z * this._scaleValue * 7;
         this._initialPosition.z = this.position.z;
-        this.position.z = this._initialPosition.z + this._settings.targetPosition.z * this._progress;
+        this.position.z = this._initialPosition.z + this._settings.targetPosition[Breakpoints.current].z * this._progress;
     }
 
     _updateRotation() {
@@ -182,8 +186,8 @@ export default class LogoBoolean extends Object3D {
         interactions.addInput(this._settings, 'rotateX', { min: -45, max: 45 });
         interactions.addInput(this._settings, 'rotateY', { min: -45, max: 45 });
 
-        const animations = folder.addFolder({ title: 'Animations' });
-        animations.addInput(this._settings, 'targetPosition');
+        // const animations = folder.addFolder({ title: 'Animations' });
+        // animations.addInput(this._settings, 'targetPosition');
 
         return folder;
     }

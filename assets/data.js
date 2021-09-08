@@ -1,7 +1,7 @@
 export default {
     images: [
-        '/images/image-1.jpg',
         '/images/image-2.jpg',
+        '/images/image-1.jpg',
         '/images/image-3.jpg',
         '/images/image-4.jpg',
         '/images/image-5.jpg',
@@ -9,8 +9,8 @@ export default {
     ],
 
     sentences: [
-        'Émouvant avec Norah Amsellem l’une des plus grandes sopranos',
         'Envoûtant, avec la grâce du duo Andalou à Alicante.',
+        'Émouvant avec Norah Amsellem l’une des plus grandes sopranos',
         'Fascinant, avec une soirée unique dans la vallée de Judée.',
         'Vibrant, avec un road trip en Harley à la découverte de la péninsule du Cap.',
         'Époustouflant, avec une rencontre sauvage en Tanzanie.',
@@ -25,6 +25,10 @@ export default {
         email: {
             title: 'Email',
             emails: ['hello@goodstory.events'],
+        },
+        address: {
+            title: 'Adresse',
+            content: '229 rue Saint-Honoré 75001 Paris',
         },
         phone: {
             title: 'Téléphone',

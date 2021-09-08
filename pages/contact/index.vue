@@ -27,6 +27,16 @@
 
                     </div>
 
+                    <div class="block-infos address">
+
+                        <div class="title">
+                            {{ data.contact.address.title }}
+                        </div>
+
+                        <p class="paragraph" v-html="data.contact.address.content"></p>
+
+                    </div>
+
                     <div class="block-infos phone">
 
                         <div class="title">

@@ -9,13 +9,13 @@ export default {
      ** See https://nuxtjs.org/api/configuration-head
      */
     head: {
-        title: 'Good Story - Live and Digital Experiences',
+        title: "Good Story - Créateurs d'expériences",
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', property: 'description', content: "Good Story raconte et met en scène votre histoire à travers un véritable parcours d'expériences. Chaque événement (live, digital, immersif) possède sa propre identité. Sa finalité est de nourrir et embarquer vos communautés sur la durée." },
+            { hid: 'description', name: 'description', property: 'description', content: 'En France, en Europe et à travers le monde, Good Story vous fait vivre des expériences marquantes, engageantes, inspirantes et innovantes.' },
             { hid: 'og:title', name: 'og:title', property: 'og:title', content: 'Good Story - Live and Digital Experiences' },
-            { hid: 'og:description', name: 'og:description', property: 'og:description', content: "Good Story raconte et met en scène votre histoire à travers un véritable parcours d'expériences. Chaque événement (live, digital, immersif) possède sa propre identité. Sa finalité est de nourrir et embarquer vos communautés sur la durée." },
+            { hid: 'og:description', name: 'og:description', property: 'og:description', content: 'En France, en Europe et à travers le monde, Good Story vous fait vivre des expériences marquantes, engageantes, inspirantes et innovantes.' },
             { hid: 'og:type', name: 'og:type', property: 'og:type', content: 'website' },
             { hid: 'og:url', name: 'og:url', property: 'og:url', content: 'https://www.goodstory.events/' },
             { hid: 'og:image', name: 'og:image', property: 'og:image', content: '/images/image-5.jpg' },
@@ -49,6 +49,7 @@ export default {
         // Doc: https://github.com/nuxt-community/stylelint-module
         '@nuxtjs/stylelint-module',
         '@nuxt/components',
+        '@nuxtjs/google-analytics',
     ],
     /*
      ** Nuxt.js modules
@@ -59,6 +60,13 @@ export default {
         '@nuxtjs/style-resources',
         '@nuxtjs/svg',
     ],
+    /**
+     * Google Analytics
+     */
+    googleAnalytics: {
+        // Options
+        id: 'UA-140952709-1',
+    },
     /*
      ** Build configuration
      ** See https://nuxtjs.org/api/configuration-build/

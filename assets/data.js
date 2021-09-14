@@ -11,7 +11,7 @@ export default {
     sentences: [
         'Envoûtant, avec la grâce du duo Andalou à Alicante.',
         'Émouvant avec Norah Amsellem l’une des plus grandes sopranos',
-        'Fascinant, avec une soirée unique dans la vallée de Judée.',
+        'Fascinant, avec une soirée unique dans le désert de Judée.',
         'Vibrant, avec un road trip en Harley à la découverte de la péninsule du Cap.',
         'Époustouflant, avec une rencontre sauvage en Tanzanie.',
         'Palpitant, avec un match de hockey sur la Place Rouge à Moscou.',

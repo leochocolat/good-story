@@ -27,13 +27,13 @@
 
                     </div>
 
-                    <div class="block-infos address">
+                    <div v-for="(item, index) in data.contact.addresses" :key="index" class="block-infos address">
 
                         <div class="title">
-                            {{ data.contact.address.title }}
+                            {{ item.title }}
                         </div>
 
-                        <p class="paragraph" v-html="data.contact.address.content"></p>
+                        <p class="paragraph" v-html="item.content"></p>
 
                     </div>
 

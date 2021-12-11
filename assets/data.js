@@ -11,7 +11,7 @@ export default {
     sentences: [
         'Envoûtant, avec la grâce du duo Andalou à Alicante.',
         'Émouvant avec Norah Amsellem l’une des plus grandes sopranos',
-        'Fascinant, avec une soirée unique dans le désert de Judée.',
+        'Fascinant, avec une soirée mémorable dans le désert de Judée.',
         'Vibrant, avec un road trip en Harley à la découverte de la péninsule du Cap.',
         'Époustouflant, avec une rencontre sauvage en Tanzanie.',
         'Palpitant, avec un match de hockey sur la Place Rouge à Moscou.',
@@ -26,10 +26,16 @@ export default {
             title: 'Email',
             emails: ['hello@goodstory.events'],
         },
-        address: {
-            title: 'Adresse',
-            content: '229 rue Saint-Honoré 75001 Paris',
-        },
+        addresses: [
+            {
+                title: 'Siège social',
+                content: '229 rue Saint Honoré 75001 Paris',
+            },
+            {
+                title: 'Bureaux',
+                content: '121 rue de Tocqueville 75017 Paris',
+            },
+        ],
         phone: {
             title: 'Téléphone',
             phones: ['01.89.16.70.96'],
@@ -39,7 +45,8 @@ export default {
             socials: [
                 {
                     title: 'Instagram',
-                    url: 'https://www.instagram.com/goodstoryagency',
+                    // url: 'https://www.instagram.com/goodstoryagency',
+                    url: 'https://www.instagram.com/goodstoryagency/',
                 },
                 {
                     title: 'Linkedin',

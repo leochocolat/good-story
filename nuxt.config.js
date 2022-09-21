@@ -63,10 +63,10 @@ export default {
     /**
      * Google Analytics
      */
-    googleAnalytics: {
-        // Options
-        id: 'UA-140952709-1',
-    },
+    // googleAnalytics: {
+    //     // Options
+    //     id: 'UA-140952709-1',
+    // },
     /*
      ** Build configuration
      ** See https://nuxtjs.org/api/configuration-build/

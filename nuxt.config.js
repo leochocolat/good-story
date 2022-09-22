@@ -49,7 +49,7 @@ export default {
         // Doc: https://github.com/nuxt-community/stylelint-module
         '@nuxtjs/stylelint-module',
         '@nuxt/components',
-        '@nuxtjs/google-analytics',
+        // '@nuxtjs/google-analytics',
     ],
     /*
      ** Nuxt.js modules
